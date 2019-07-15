@@ -22,7 +22,7 @@ public class SSDGUIFORM extends JFrame
 
         for (int i = 0; i < 1000; i++) {
             int random_varible = random.nextInt(5);
-            fileInfo.addElement(file[random_varible]);
+        //    fileInfo.addElement(file[random_varible]);
         }
 
         list1.setListData(fileInfo);

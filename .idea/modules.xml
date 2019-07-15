@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/SSDViewerGUI.iml" filepath="$PROJECT_DIR$/.idea/SSDViewerGUI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SSD_Viewer/SSD_Viewer.iml" filepath="$PROJECT_DIR$/SSD_Viewer/SSD_Viewer.iml" />
     </modules>
   </component>
 </project>
