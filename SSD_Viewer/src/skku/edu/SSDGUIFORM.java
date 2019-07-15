@@ -1,8 +1,7 @@
 package skku.edu;
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.Random;
+import java.io.*;
 import java.util.Vector;
 
 public class SSDGUIFORM extends JFrame
@@ -11,21 +10,25 @@ public class SSDGUIFORM extends JFrame
     private JPanel rootPanel;
     private JList list1;
     private JScrollPane scrPane;
-    private Vector fileInfo;
-    private Random random;
-    private String[] fileName = {"1.txt","2.txt","3.txt","4.txt","5.txt"};
+    Vector<String> filenames = new Vector<String>();
 
-    public SSDGUIFORM()
-    {
-        random = new Random();
-        fileInfo = new Vector();
+    public SSDGUIFORM() throws IOException {
 
-        for (int i = 0; i < 1000; i++) {
-            int random_varible = random.nextInt(5);
-            fileInfo.addElement(file[random_varible]);
+
+        /*File I/O*/
+        File file = new File("C:\\Users\\Dahab Shakeel\\Desktop\\SSD_Viewer\\src\\skku\\edu\\filenames.txt"); //file path .. please change according to your input file
+
+        BufferedReader br = new BufferedReader(new FileReader(file));
+
+        /*Saving the file names*/
+        String st;
+        while ((st = br.readLine()) != null)
+        {
+            filenames.addElement(st);
         }
 
-        list1.setListData(fileInfo);
+        /*Setting the data to our list*/
+        list1.setListData(filenames);
         list1.setSelectedIndex(0);
 
         add(rootPanel);
