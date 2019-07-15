@@ -1,5 +1,7 @@
 package skku.edu;
 
+import sun.nio.cs.ext.MacArabic;
+
 import java.io.IOException;
 
 public class Main {
@@ -9,5 +11,8 @@ public class Main {
 
         SSDGUIFORM myGUIFORM=new SSDGUIFORM();
         myGUIFORM.setVisible(true);
+
+        //MappingTable myMapping = new MappingTable();
+        //myMapping.setVisible(true);
     }
 }
