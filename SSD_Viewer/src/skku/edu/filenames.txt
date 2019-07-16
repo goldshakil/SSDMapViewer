@@ -6,19 +6,25 @@ file5
 file6
 file7
 file8
-file1
-file2
-file3
-file4
-file5
-file6
-file7
-file8
-file1
-file2
-file3
-file4
-file5
-file6
-file7
-file8
+END
+file1:
+1000  250
+1001  251
+1002  252
+1003  457
+1004  580
+1005  581
+1006  112
+1007  1025
+END
+file2:
+1000  250
+1001  251
+1002  252
+1003  457
+1004  580
+1005  581
+1006  112
+1007  1025
+
+
