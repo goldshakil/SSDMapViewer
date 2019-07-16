@@ -6,6 +6,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.net.URL;
 import java.util.Vector;
 
 public class SSDGUIFORM extends JFrame{
@@ -21,14 +22,17 @@ public class SSDGUIFORM extends JFrame{
 
 
         /*File I/O*/
-        File file = new File("//Users//softhoon//Desktop//file.txt"); //file path .. please change according to your input file
+        URL url = getClass().getResource("filenames.txt");
+        File file = new File(url.getPath());
 
         BufferedReader br = new BufferedReader(new FileReader(file));
 
         /*Saving the file names*/
         String st;
+
         while ((st = br.readLine()) != null)
         {
+            if(st.equals("END")) break;
             filenames.addElement(st);
         }
 
@@ -40,7 +44,7 @@ public class SSDGUIFORM extends JFrame{
         add(rootPanel);
         setTitle("This is SSD Viewer");
         setSize(400,500);
-
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JListHandler handler = new JListHandler();
         list1.addListSelectionListener(handler);
 
@@ -55,13 +59,90 @@ public class SSDGUIFORM extends JFrame{
                     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     setVisible(false);
 
-                    MappingTable myMapping = null;
+                    PBAtable myPBAtable = null;
                     try {
-                        myMapping = new MappingTable(file_name);
+                        myPBAtable = new PBAtable(file_name);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-                    myMapping.setVisible(true);
+                    myPBAtable.setVisible(true);
+                }
+            }
+        });
+
+        pieBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Log pie button "+file_name);
+
+                if(file_name.length() > 0){
+                    System.out.println("Log pie legal "+file_name);
+
+                    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    setVisible(false);
+
+                    PieChart myPie = null;
+                    try {
+                        myPie = new PieChart(file_name);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    myPie.setVisible(true);
+                }
+            }
+        });
+
+    }
+
+    public SSDGUIFORM(String _file_name) throws IOException {
+
+        if(_file_name.length() > 0) file_name = _file_name;
+
+        /*File I/O*/
+        URL url = getClass().getResource("filenames.txt");
+        File file = new File(url.getPath());
+
+        BufferedReader br = new BufferedReader(new FileReader(file));
+
+        /*Saving the file names*/
+        String st;
+
+        while ((st = br.readLine()) != null)
+        {
+            if(st.equals("END")) break;
+            filenames.addElement(st);
+        }
+
+        /*Setting the data to our list*/
+        list1.setListData(filenames);
+        list1.setSelectedIndex(0);
+        list1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        add(rootPanel);
+        setTitle("This is SSD Viewer");
+        setSize(400,500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JListHandler handler = new JListHandler();
+        list1.addListSelectionListener(handler);
+
+        tableBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Log button "+file_name);
+
+                if(file_name.length() > 0){
+                    System.out.println("Log legal "+file_name);
+
+                    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    setVisible(false);
+
+                    PBAtable myPBAtable = null;
+                    try {
+                        myPBAtable = new PBAtable(file_name);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    myPBAtable.setVisible(true);
                 }
             }
         });
