@@ -1,6 +1,5 @@
 package skku.edu;
 
-import sun.nio.cs.ext.MacArabic;
 
 import java.io.IOException;
 

@@ -6,14 +6,14 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.nio.file.ClosedFileSystemException;
 import java.util.Vector;
 
 public class SSDGUIFORM extends JFrame{
-    private JButton Mybutton;
+    private JButton tableBtn;
     private JPanel rootPanel;
     private JList list1;
     private JScrollPane scrPane;
+    private JButton pieBtn;
     Vector<String> filenames = new Vector<String>();
     String file_name="";
 
@@ -21,7 +21,7 @@ public class SSDGUIFORM extends JFrame{
 
 
         /*File I/O*/
-        File file = new File("C:\\Users\\rudob\\IdeaProjects\\SSDViewerGUI\\SSD_Viewer\\src\\skku\\edu\\filenames.txt"); //file path .. please change according to your input file
+        File file = new File("//Users//softhoon//Desktop//file.txt"); //file path .. please change according to your input file
 
         BufferedReader br = new BufferedReader(new FileReader(file));
 
@@ -44,7 +44,7 @@ public class SSDGUIFORM extends JFrame{
         JListHandler handler = new JListHandler();
         list1.addListSelectionListener(handler);
 
-        Mybutton.addActionListener(new ActionListener() {
+        tableBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Log button "+file_name);
@@ -65,6 +65,29 @@ public class SSDGUIFORM extends JFrame{
                 }
             }
         });
+
+        pieBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Log pie button "+file_name);
+
+                if(file_name.length() > 0){
+                    System.out.println("Log pie legal "+file_name);
+
+                    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    setVisible(false);
+
+                    PieChart myPie = null;
+                    try {
+                        myPie = new PieChart(file_name);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    myPie.setVisible(true);
+                }
+            }
+        });
+
     }
 
     private class JListHandler implements ListSelectionListener
