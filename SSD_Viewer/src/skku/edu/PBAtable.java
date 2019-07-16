@@ -29,7 +29,7 @@ public class PBAtable extends JFrame{
 
         label.setText(" "+file_name);
         /*File I/O*/
-        File file = new File("C:\\Users\\rudob\\IdeaProjects\\SSDViewerGUI\\SSD_Viewer\\src\\skku\\edu\\filenames.txt"); //file path .. please change according to your input file
+        File file = new File("C:\\Users\\Dahab Shakeel\\Desktop\\SSD_Viewer\\src\\skku\\edu\\filenames.txt"); //file path .. please change according to your input file
 
         BufferedReader br = new BufferedReader(new FileReader(file));
 
