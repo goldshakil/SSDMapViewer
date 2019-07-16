@@ -83,13 +83,13 @@ public class PBAtable extends JFrame{
 
                     //TODO: ViewOption으로 넘어가기 < 승훈이 마치면 하기
 
-                    MappingTable myMapping = null;
+                    SSDGUIFORM myGUIFORM = null;
                     try {
-                        myMapping = new MappingTable(file_name);
+                        myGUIFORM = new SSDGUIFORM(file_name);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-                    myMapping.setVisible(true);
+                    myGUIFORM.setVisible(true);
                 }
             }
         });
