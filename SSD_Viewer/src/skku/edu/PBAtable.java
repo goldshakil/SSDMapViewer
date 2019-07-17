@@ -54,7 +54,8 @@ public class PBAtable extends JFrame{
         LBA_list.setListData(LBA_vec);
         LBA_list.setSelectedIndex(0);
         PBA_list.setListData(PBA_vec);
-        PBA_list.setSelectedIndex(0);
+        LBA_list.clearSelection();
+        PBA_list.clearSelection();
 
 
         add(rootPanel);
@@ -80,7 +81,7 @@ public class PBAtable extends JFrame{
 
                     SSDGUIFORM myGUIFORM = null;
                     try {
-                        myGUIFORM = new SSDGUIFORM(file_name);
+                        myGUIFORM = new SSDGUIFORM();
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
