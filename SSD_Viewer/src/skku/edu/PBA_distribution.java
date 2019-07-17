@@ -1,7 +1,10 @@
 package skku.edu;
 
+import javafx.scene.control.TableCell;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +25,7 @@ public class PBA_distribution extends JFrame{
 
     String file_name="";
 
-    public PBA_distribution(String file_name) throws IOException{
+    public PBA_distribution(String file_name) throws IOException, ClassNotFoundException {
 
         distribution_label.setText(" PBA distribution:  " + file_name);
         userColumn.addElement("PBA");
@@ -36,8 +39,28 @@ public class PBA_distribution extends JFrame{
             userRow.addElement(" ");
             model.addRow(userRow);
         }
-        distribution_table = new JTable(model);
+        distribution_table = new JTable(model){
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                // TODO Auto-generated method stub
+                JComponent component = (JComponent) super.prepareRenderer(renderer, row, column);
+
+                //System.out.println(getValueAt(row, column));
+                if(getValueAt(row, column).equals("*")) {
+                    component.setBackground(Color.BLUE);
+                }
+                else{
+                    component.setBackground(Color.WHITE);
+                }
+                return component;
+            }
+        };
         jscrollpane.setViewportView(distribution_table);
+        /*
+            TableCellRenderer Tcr = jTable1.getCellRenderer(x, y);
+            Component c = Tcr.getTableCellRendererComponent(jTable1, jTable1.getValueAt(x, y), false, false, x, y);
+         */
+
 
         File file = new File("C:\\Users\\rudob\\IdeaProjects\\SSDViewerGUI\\SSD_Viewer\\src\\skku\\edu\\filenames.txt"); //file path .. please change according to your input file
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -45,14 +68,15 @@ public class PBA_distribution extends JFrame{
         int ack = 0;
         while ((st = br.readLine()) != null)
         {
+
             if(st.equals("END")) ack = 0;
 
             if(ack == 1){
                 System.out.println(st.split("\\s")[2]);
-
-                distribution_table.setValueAt("//////////////////////////////////////",Integer.parseInt(st.split("\\s")[2]), 1);
-
+                int row = Integer.parseInt(st.split("\\s")[2]);
+                distribution_table.setValueAt("*",row, 1);
             }
+
             if(st.equals(file_name+":")) ack = 1;
         }
 
@@ -84,5 +108,7 @@ public class PBA_distribution extends JFrame{
                 }
             }
         });
+
     }
+
 }
