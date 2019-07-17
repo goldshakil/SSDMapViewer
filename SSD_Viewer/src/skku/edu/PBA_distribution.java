@@ -19,12 +19,26 @@ public class PBA_distribution extends JFrame{
     private JScrollPane jscrollpane;
     Vector<String> userColumn = new Vector<>();
     DefaultTableModel model;
-    Vector<String> userRow = new Vector<>();
+
     String file_name="";
 
     public PBA_distribution(String file_name) throws IOException{
 
         distribution_label.setText(" PBA distribution:  " + file_name);
+        userColumn.addElement("PBA");
+        userColumn.addElement("Allocation");
+        model = new DefaultTableModel(userColumn, 0);
+
+
+        for(int i = 0; i < 1500; i++) {
+            Vector<String> userRow = new Vector<>();
+            userRow.addElement(Integer.toString(i));
+            userRow.addElement(" ");
+            model.addRow(userRow);
+        }
+        distribution_table = new JTable(model);
+        jscrollpane.setViewportView(distribution_table);
+
         File file = new File("C:\\Users\\rudob\\IdeaProjects\\SSDViewerGUI\\SSD_Viewer\\src\\skku\\edu\\filenames.txt"); //file path .. please change according to your input file
         BufferedReader br = new BufferedReader(new FileReader(file));
         String st;
@@ -36,24 +50,20 @@ public class PBA_distribution extends JFrame{
             if(ack == 1){
                 System.out.println(st.split("\\s")[2]);
 
+                distribution_table.setValueAt("//////////////////////////////////////",Integer.parseInt(st.split("\\s")[2]), 1);
+
             }
             if(st.equals(file_name+":")) ack = 1;
         }
 
 
-        userColumn.addElement("PBA");
-        userColumn.addElement("Allocation");
-        model = new DefaultTableModel(userColumn,0);
-        distribution_table = new JTable(model);
 
-        userRow.addElement("1");
-        userRow.addElement("one");
-        model.addRow(userRow);
+
+
+
 
         //TODO: change the range into real PBA range
 
-
-        jscrollpane.setViewportView(distribution_table);
         add(rootPanel);
         setTitle("PBA Distribution");
         setSize(400,500);
