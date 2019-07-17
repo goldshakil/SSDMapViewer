@@ -56,12 +56,6 @@ public class PBA_distribution extends JFrame{
             if(st.equals(file_name+":")) ack = 1;
         }
 
-
-
-
-
-
-
         //TODO: change the range into real PBA range
 
         add(rootPanel);
