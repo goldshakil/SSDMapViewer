@@ -56,6 +56,7 @@ public class PBAtable extends JFrame{
         PBA_list.setListData(PBA_vec);
         LBA_list.clearSelection();
         PBA_list.clearSelection();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
         add(rootPanel);
