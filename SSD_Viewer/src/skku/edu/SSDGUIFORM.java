@@ -23,7 +23,7 @@ public class SSDGUIFORM extends JFrame{
 
         /*File I/O*/
        // URL url = getClass().getResource("C:\\Users\\Dahab Shakeel\\Desktop\\SSD_Viewer\\out\\production\\SSD_Viewer\\skku\\edu\\filenames.txt");
-        File file = new File("C:\\Users\\Dahab Shakeel\\Desktop\\SSD_Viewer\\src\\skku\\edu\\filenames.txt");
+        File file = new File("C:\\Users\\rudob\\IdeaProjects\\SSDViewerGUI\\SSD_Viewer\\src\\skku\\edu\\filenames.txt");
 
         BufferedReader br = new BufferedReader(new FileReader(file));
 

@@ -1,8 +1,6 @@
 package skku.edu;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,13 +27,12 @@ public class PBAtable extends JFrame{
 
         label.setText(" "+file_name);
         /*File I/O*/
-        File file = new File("C:\\Users\\Dahab Shakeel\\Desktop\\SSD_Viewer\\src\\skku\\edu\\filenames.txt"); //file path .. please change according to your input file
+        File file = new File("C:\\Users\\rudob\\IdeaProjects\\SSDViewerGUI\\SSD_Viewer\\src\\skku\\edu\\filenames.txt"); //file path .. please change according to your input file
 
         BufferedReader br = new BufferedReader(new FileReader(file));
 
         /*Saving the file names*/
 
-        //TODO: 해당 file name 부터 END 까지 읽기
         String st;
         int ack = 0;
         while ((st = br.readLine()) != null)
@@ -43,8 +40,6 @@ public class PBAtable extends JFrame{
             if(st.equals("END")) ack = 0;
 
             if(ack == 1){
-
-                //TODO: LBA_vec, PBA_vec push back
 
                 System.out.println(st);
                 LBA_vec.addElement(st.split("\\s")[0]);
@@ -66,7 +61,7 @@ public class PBAtable extends JFrame{
         setTitle("LBA PBA Table");
         setSize(400,500);
 
-        //TODO: Back button size
+
         back_button.setPreferredSize(new Dimension(10,10));
 
 
@@ -81,7 +76,7 @@ public class PBAtable extends JFrame{
                     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     setVisible(false);
 
-                    //TODO: ViewOption으로 넘어가기 < 승훈이 마치면 하기
+
 
                     SSDGUIFORM myGUIFORM = null;
                     try {
