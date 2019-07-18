@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/SSD_Viewer.iml" filepath="$PROJECT_DIR$/SSD_Viewer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jfreechart-1.0.19/jfreechart-1.0.19.iml" filepath="$PROJECT_DIR$/jfreechart-1.0.19/jfreechart-1.0.19.iml" />
+    </modules>
+  </component>
+</project>

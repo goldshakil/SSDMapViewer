@@ -43,7 +43,7 @@ public class PieChart extends JFrame {
         setVisible(true);
 
         /*Reading */
-        File file = new File("C:\\Users\\Dahab Shakeel\\Desktop\\SSD_Viewer\\src\\skku\\edu\\filenames.txt"); //file path .. please change according to your input file
+        File file = new File("/Users/softhoon/Desktop/Java/SSDViewerGUI/SSD_Viewer/src/skku/edu/filenames.txt"); //file path .. please change according to your input file
         BufferedReader br = new BufferedReader(new FileReader(file));
 
         //reading from a buffer into a string
