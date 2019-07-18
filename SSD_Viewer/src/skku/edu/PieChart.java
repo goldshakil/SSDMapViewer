@@ -31,7 +31,7 @@ public class PieChart extends JFrame {
     //for storing ranges
     //<Integer, Integer> ranges = new HashMap<>();
 
-    public PieChart(String file_name) throws IOException {
+    public PieChart(String Path, String file_name) throws IOException {
 
 
 
@@ -43,7 +43,7 @@ public class PieChart extends JFrame {
         setVisible(true);
 
         /*Reading */
-        File file = new File("C:\\Users\\Dahab Shakeel\\Desktop\\SSD_Viewer\\src\\skku\\edu\\filenames.txt"); //file path .. please change according to your input file
+        File file = new File(Path); //file path .. please change according to your input file
         BufferedReader br = new BufferedReader(new FileReader(file));
 
         //reading from a buffer into a string
