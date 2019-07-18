@@ -21,26 +21,9 @@ public class SSDGUIFORM extends JFrame{
     private JTextField fileTextField;
     Vector<String> filenames = new Vector<String>();
     String file_name="";
+    String Path = "";
 
     public SSDGUIFORM() throws IOException {
-
-
-
-
-
-
-        //File file = new File("/Users/softhoon/Desktop/Java/SSDViewerGUI/SSD_Viewer/src/skku/edu/filenames.txt");
-
-        //BufferedReader br = new BufferedReader(new FileReader(file));
-
-        /*Saving the file names*/
-//        String st;
-//
-//        while ((st = br.readLine()) != null)
-//        {
-//            if(st.equals("END")) break;
-//            filenames.addElement(st);
-//        }
 
         fileOpenBtn.addActionListener(e -> {
             list1.setListData(selectFile(filenames));
@@ -72,7 +55,7 @@ public class SSDGUIFORM extends JFrame{
 
                     PBAtable myPBAtable = null;
                     try {
-                        myPBAtable = new PBAtable(file_name);
+                        myPBAtable = new PBAtable(Path, file_name);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -94,7 +77,7 @@ public class SSDGUIFORM extends JFrame{
 
                     PieChart myPie = null;
                     try {
-                        myPie = new PieChart(file_name);
+                        myPie = new PieChart(Path, file_name);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -120,7 +103,8 @@ public class SSDGUIFORM extends JFrame{
                     if (st.equals("END")) break;
                     fileList.addElement(st);
                 }
-                fileNameLabel.setText(f.getAbsolutePath());
+                Path =f.getAbsolutePath();
+                fileNameLabel.setText(Path);
             }catch (Exception o){
 
             }

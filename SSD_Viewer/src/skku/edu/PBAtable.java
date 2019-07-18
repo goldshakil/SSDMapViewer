@@ -22,12 +22,12 @@ public class PBAtable extends JFrame{
     Vector<String> PBA_vec = new Vector<String>();
     String file_name="";
 
-    public PBAtable(String file_name) throws IOException {
+    public PBAtable(String Path, String file_name) throws IOException {
 
 
         label.setText(" "+file_name);
         /*File I/O*/
-        File file = new File("/Users/softhoon/Desktop/Java/SSDViewerGUI/SSD_Viewer/src/skku/edu/filenames.txt"); //file path .. please change according to your input file
+        File file = new File(Path); //file path .. please change according to your input file
 
         BufferedReader br = new BufferedReader(new FileReader(file));
 
