@@ -82,7 +82,7 @@ public class PBAtable extends JFrame{
 
                     SSDGUIFORM myGUIFORM = null;
                     try {
-                        myGUIFORM = new SSDGUIFORM();
+                        myGUIFORM = new SSDGUIFORM(Path);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }

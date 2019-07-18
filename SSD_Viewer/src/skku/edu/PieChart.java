@@ -154,7 +154,7 @@ public class PieChart extends JFrame {
 
                 SSDGUIFORM ssdForm = null;
                 try {
-                    ssdForm = new SSDGUIFORM();
+                    ssdForm = new SSDGUIFORM(Path);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
