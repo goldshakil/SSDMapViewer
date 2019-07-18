@@ -3,6 +3,7 @@ package skku.edu;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -15,29 +16,38 @@ public class SSDGUIFORM extends JFrame{
     private JList list1;
     private JScrollPane scrPane;
     private JButton pieBtn;
+    private JButton fileOpenBtn;
+    private JLabel fileNameLabel;
+    private JTextField fileTextField;
     Vector<String> filenames = new Vector<String>();
     String file_name="";
 
     public SSDGUIFORM() throws IOException {
 
 
-        /*File I/O*/
-       // URL url = getClass().getResource("C:\\Users\\Dahab Shakeel\\Desktop\\SSD_Viewer\\out\\production\\SSD_Viewer\\skku\\edu\\filenames.txt");
-        File file = new File("C:\\Users\\rudob\\IdeaProjects\\SSDViewerGUI\\SSD_Viewer\\src\\skku\\edu\\filenames.txt");
 
-        BufferedReader br = new BufferedReader(new FileReader(file));
+
+
+
+        //File file = new File("/Users/softhoon/Desktop/Java/SSDViewerGUI/SSD_Viewer/src/skku/edu/filenames.txt");
+
+        //BufferedReader br = new BufferedReader(new FileReader(file));
 
         /*Saving the file names*/
-        String st;
+//        String st;
+//
+//        while ((st = br.readLine()) != null)
+//        {
+//            if(st.equals("END")) break;
+//            filenames.addElement(st);
+//        }
 
-        while ((st = br.readLine()) != null)
-        {
-            if(st.equals("END")) break;
-            filenames.addElement(st);
-        }
+        fileOpenBtn.addActionListener(e -> {
+            list1.setListData(selectFile(filenames));
+        });
+        pack();
 
         /*Setting the data to our list*/
-        list1.setListData(filenames);
         list1.setSelectedIndex(0);
         list1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list1.clearSelection();
@@ -93,6 +103,37 @@ public class SSDGUIFORM extends JFrame{
             }
         });
 
+    }
+
+    public Vector<String> selectFile(Vector<String> fileList) {
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES","txt");
+        chooser.setFileFilter(filter);
+        // optionally set chooser options ...
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File f = chooser.getSelectedFile();
+            File file = new File(f.getAbsolutePath());
+            try {
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(f));
+            String st;
+                while ((st = bufferedReader.readLine()) != null) {
+                    if (st.equals("END")) break;
+                    fileList.addElement(st);
+                }
+                fileNameLabel.setText(f.getAbsolutePath());
+            }catch (Exception o){
+
+            }
+
+            //System.out.println(f.getAbsolutePath());
+        } else {
+            // user changed their mind
+        }
+        return fileList;
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
 
     private class JListHandler implements ListSelectionListener
