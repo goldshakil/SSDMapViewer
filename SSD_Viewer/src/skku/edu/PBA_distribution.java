@@ -25,7 +25,7 @@ public class PBA_distribution extends JFrame{
 
     String file_name="";
 
-    public PBA_distribution(String file_name) throws IOException, ClassNotFoundException {
+    public PBA_distribution(String Path, String file_name) throws IOException, ClassNotFoundException {
 
         distribution_label.setText(" PBA distribution:  " + file_name);
         userColumn.addElement("PBA");
@@ -62,7 +62,7 @@ public class PBA_distribution extends JFrame{
          */
 
 
-        File file = new File("C:\\Users\\rudob\\IdeaProjects\\SSDViewerGUI\\SSD_Viewer\\src\\skku\\edu\\filenames.txt"); //file path .. please change according to your input file
+        File file = new File(Path); //file path .. please change according to your input file
         BufferedReader br = new BufferedReader(new FileReader(file));
         String st;
         int ack = 0;

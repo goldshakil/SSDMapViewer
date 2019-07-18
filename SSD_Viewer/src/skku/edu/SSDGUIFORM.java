@@ -18,6 +18,7 @@ public class SSDGUIFORM extends JFrame{
     private JButton pieBtn;
     private JButton fileOpenBtn;
     private JLabel fileNameLabel;
+    private JButton distributionBtn;
     private JTextField fileTextField;
     Vector<String> filenames = new Vector<String>();
     String file_name="";
@@ -36,7 +37,7 @@ public class SSDGUIFORM extends JFrame{
         list1.clearSelection();
         add(rootPanel);
         setTitle("This is SSD Viewer");
-        setSize(400,500);
+        setSize(500,500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JListHandler handler = new JListHandler();
@@ -82,6 +83,29 @@ public class SSDGUIFORM extends JFrame{
                         ex.printStackTrace();
                     }
                     myPie.setVisible(true);
+                }
+            }
+        });
+        distributionBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Log pie button "+file_name);
+
+                if(file_name.length() > 0){
+                    System.out.println("Log pie legal "+file_name);
+
+                    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    setVisible(false);
+
+                    PBA_distribution mydistribution = null;
+                    try {
+                        mydistribution = new PBA_distribution(Path, file_name);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    } catch (ClassNotFoundException ex) {
+                        ex.printStackTrace();
+                    }
+                    mydistribution.setVisible(true);
                 }
             }
         });
