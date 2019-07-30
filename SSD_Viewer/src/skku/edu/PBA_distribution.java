@@ -68,16 +68,15 @@ public class PBA_distribution extends JFrame{
         int ack = 0;
         while ((st = br.readLine()) != null)
         {
+            if(st.equals("END")) ack = 1;
 
-            if(st.equals("END")) ack = 0;
-
-            if(ack == 1){
-                System.out.println(st.split("\\s")[2]);
-                int row = Integer.parseInt(st.split("\\s")[2]);
+            if(ack == 2){
+                System.out.println(st.split("\t")[1]);
+                int row = Integer.parseInt(st.split("\t")[1]);
                 distribution_table.setValueAt("*",row, 1);
             }
 
-            if(st.equals(file_name+":")) ack = 1;
+            if(st.equals(file_name)&&ack == 1) ack = 2;
         }
 
         //TODO: change the range into real PBA range

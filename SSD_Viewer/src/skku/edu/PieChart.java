@@ -51,17 +51,16 @@ public class PieChart extends JFrame {
         int ack = 0;
         while ((st = br.readLine()) != null)
         {
-            if(st.equals("END")) ack = 0;
+            if(st.equals("END")) ack = 1;
 
-            if(ack == 1){
+            if(ack == 2){
 
                 //TODO: LBA_vec, PBA_vec push back
 
-
-                LBA_vec.addElement(st.split("\\s")[0]);
-                PBA_vec.addElement(st.split("\\s")[2]);
+                LBA_vec.addElement(st.split("\t")[0]);
+                PBA_vec.addElement(st.split("\t")[1]);
             }
-            if(st.equals(file_name+":")) ack = 1;
+            if(st.equals(file_name)&&ack==1) ack = 2;
         }
 
         /*Convert the String Vector to Integer*/

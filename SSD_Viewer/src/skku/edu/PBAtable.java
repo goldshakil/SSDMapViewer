@@ -24,28 +24,30 @@ public class PBAtable extends JFrame{
 
     public PBAtable(String Path, String file_name) throws IOException {
 
+        System.out.println("pba file name: "+file_name);
 
         label.setText(" "+file_name);
+
         /*File I/O*/
         File file = new File(Path); //file path .. please change according to your input file
-
         BufferedReader br = new BufferedReader(new FileReader(file));
 
         /*Saving the file names*/
-
         String st;
         int ack = 0;
         while ((st = br.readLine()) != null)
         {
-            if(st.equals("END")) ack = 0;
+            if(st.equals("END")) ack = 1;
 
-            if(ack == 1){
+            if(ack == 2){
 
-                System.out.println(st);
                 LBA_vec.addElement(st.split("\\s")[0]);
-                PBA_vec.addElement(st.split("\\s")[2]);
+                PBA_vec.addElement(st.split("\\s")[1]);
+                System.out.println("split "+st.split("\t")[0]);
+                System.out.println("split "+st.split("\t")[1]);
+
             }
-            if(st.equals(file_name+":")) ack = 1;
+            if(st.equals(file_name)&&ack==1) ack = 2;
         }
 
 
