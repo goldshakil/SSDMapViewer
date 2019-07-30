@@ -29,8 +29,10 @@ public class MappingTable extends JFrame {
                         ssdForm = new SSDGUIFORM();
                     } catch (IOException ex) {
                         ex.printStackTrace();
+                    } catch (ClassNotFoundException ex) {
+                        ex.printStackTrace();
                     }
-                    ssdForm.setVisible(true);
+                ssdForm.setVisible(true);
             }
         });
     }

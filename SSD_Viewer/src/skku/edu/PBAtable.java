@@ -22,7 +22,7 @@ public class PBAtable extends JFrame{
     Vector<String> PBA_vec = new Vector<String>();
     String file_name="";
 
-    public PBAtable(String Path, String file_name) throws IOException {
+    public PBAtable(String Path, String file_name) throws IOException, ClassNotFoundException {
 
         System.out.println("pba file name: "+file_name);
 
@@ -37,8 +37,10 @@ public class PBAtable extends JFrame{
         int ack = 0;
         while ((st = br.readLine()) != null)
         {
-            if(st.equals("END")) ack = 1;
-
+            if(st.equals("END")){
+                if(ack==2) break;
+                else ack = 1;
+            }
             if(ack == 2){
 
                 LBA_vec.addElement(st.split("\\s")[0]);

@@ -25,7 +25,7 @@ public class PBA_distribution extends JFrame{
 
     String file_name="";
 
-    public PBA_distribution(String Path, String file_name) throws IOException, ClassNotFoundException {
+    public PBA_distribution(String Path, String file_name) throws IOException{
 
         distribution_label.setText(" PBA distribution:  " + file_name);
         userColumn.addElement("PBA");
@@ -33,9 +33,9 @@ public class PBA_distribution extends JFrame{
         model = new DefaultTableModel(userColumn, 0);
 
 
-        for(int i = 0; i < 1500; i++) {
+        for(int i = 0; i < 999999999; i++) {
             Vector<String> userRow = new Vector<>();
-            userRow.addElement(Integer.toString(i));
+            userRow.addElement(Long.toString(i));
             userRow.addElement(" ");
             model.addRow(userRow);
         }
@@ -56,11 +56,6 @@ public class PBA_distribution extends JFrame{
             }
         };
         jscrollpane.setViewportView(distribution_table);
-        /*
-            TableCellRenderer Tcr = jTable1.getCellRenderer(x, y);
-            Component c = Tcr.getTableCellRendererComponent(jTable1, jTable1.getValueAt(x, y), false, false, x, y);
-         */
-
 
         File file = new File(Path); //file path .. please change according to your input file
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -68,12 +63,15 @@ public class PBA_distribution extends JFrame{
         int ack = 0;
         while ((st = br.readLine()) != null)
         {
-            if(st.equals("END")) ack = 1;
+            if(st.equals("END")) {
+                if(ack==2) break;
+                else ack = 1;
+            }
 
             if(ack == 2){
                 System.out.println(st.split("\t")[1]);
                 int row = Integer.parseInt(st.split("\t")[1]);
-                distribution_table.setValueAt("*",row, 1);
+                distribution_table.setValueAt("*", row, 1);
             }
 
             if(st.equals(file_name)&&ack == 1) ack = 2;

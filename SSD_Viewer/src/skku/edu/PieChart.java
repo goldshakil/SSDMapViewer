@@ -27,7 +27,7 @@ public class PieChart extends JFrame {
     private JPanel graphPanel;
     Vector<String> LBA_vec = new Vector<String>();
     Vector<String> PBA_vec = new Vector<String>();
-    Vector<Integer>PBA_vec_converted=new Vector<Integer>();
+    Vector<Long>PBA_vec_converted=new Vector<Long>();
     //for storing ranges
     //<Integer, Integer> ranges = new HashMap<>();
 
@@ -51,8 +51,10 @@ public class PieChart extends JFrame {
         int ack = 0;
         while ((st = br.readLine()) != null)
         {
-            if(st.equals("END")) ack = 1;
-
+            if(st.equals("END")){
+                if(ack==2) break;
+                else ack = 1;
+            }
             if(ack == 2){
 
                 //TODO: LBA_vec, PBA_vec push back
@@ -67,7 +69,7 @@ public class PieChart extends JFrame {
         int size=PBA_vec.size();
        for(int i=0;i<size;i++)
        {
-           PBA_vec_converted.addElement(Integer.parseInt(PBA_vec.get(i)));
+           PBA_vec_converted.addElement(Long.parseLong(PBA_vec.get(i)));
        }
 
 
@@ -76,7 +78,7 @@ public class PieChart extends JFrame {
 
 
         /*find number of ranges+seperate ranges*/
-        int[][] ranges = new int[size][2];//at max there will be "size" number of elements
+        Long [][] ranges = new Long[size][2];//at max there will be "size" number of elements
         int array_counter=0;//for looping through the array
 
         int groups=0;//number of groups
@@ -116,9 +118,9 @@ public class PieChart extends JFrame {
         DefaultPieDataset dataSet=new DefaultPieDataset();
         for(int j=0;j<groups;j++)
         {
-            dataSet.setValue(Integer.toString(ranges[j][1]),ranges[j][1]-ranges[j][0]+1);//adding the range segment
+            dataSet.setValue(Long.toString(ranges[j][1]),ranges[j][1]-ranges[j][0]+1);//adding the range segment
             //adding the gap segment
-            dataSet.setValue("gap"+Integer.toString(j),ranges[j+1][0]-ranges[j][1]+1);
+            dataSet.setValue("gap"+Long.toString(j),ranges[j+1][0]-ranges[j][1]+1);
 
 
         }
@@ -128,7 +130,7 @@ public class PieChart extends JFrame {
         PiePlot plot = (PiePlot) pieChart.getPlot();
         for(int j=0;j<groups;j++)
         {
-            plot.setSectionPaint(Integer.toString(ranges[j][1]), Color.RED);
+            plot.setSectionPaint(Long.toString(ranges[j][1]), Color.RED);
             //adding the gap segment
             plot.setSectionPaint("gap"+Integer.toString(j), Color.BLACK);
         }

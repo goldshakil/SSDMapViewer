@@ -24,7 +24,7 @@ public class SSDGUIFORM extends JFrame{
     String file_name="";
     String Path = "";
 
-    public SSDGUIFORM() throws IOException {
+    public SSDGUIFORM() throws IOException, ClassNotFoundException {
 
         fileOpenBtn.addActionListener(e -> {
             list1.setListData(selectFile(filenames));
@@ -58,6 +58,8 @@ public class SSDGUIFORM extends JFrame{
                     try {
                         myPBAtable = new PBAtable(Path, file_name);
                     } catch (IOException ex) {
+                        ex.printStackTrace();
+                    } catch (ClassNotFoundException ex) {
                         ex.printStackTrace();
                     }
                     myPBAtable.setVisible(true);
@@ -101,8 +103,6 @@ public class SSDGUIFORM extends JFrame{
                     try {
                         mydistribution = new PBA_distribution(Path, file_name);
                     } catch (IOException ex) {
-                        ex.printStackTrace();
-                    } catch (ClassNotFoundException ex) {
                         ex.printStackTrace();
                     }
                     mydistribution.setVisible(true);
@@ -167,6 +167,8 @@ public class SSDGUIFORM extends JFrame{
                         myPBAtable = new PBAtable(Path, file_name);
                     } catch (IOException ex) {
                         ex.printStackTrace();
+                    } catch (ClassNotFoundException ex) {
+                        ex.printStackTrace();
                     }
                     myPBAtable.setVisible(true);
                 }
@@ -197,10 +199,10 @@ public class SSDGUIFORM extends JFrame{
         distributionBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Log pie button "+file_name);
+                System.out.println("Log distribution button "+file_name);
 
                 if(file_name.length() > 0){
-                    System.out.println("Log pie legal "+file_name);
+                    System.out.println("Log distribution button legal "+file_name);
 
                     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     setVisible(false);
@@ -209,8 +211,6 @@ public class SSDGUIFORM extends JFrame{
                     try {
                         mydistribution = new PBA_distribution(Path, file_name);
                     } catch (IOException ex) {
-                        ex.printStackTrace();
-                    } catch (ClassNotFoundException ex) {
                         ex.printStackTrace();
                     }
                     mydistribution.setVisible(true);
