@@ -107,7 +107,7 @@ public class PieChart extends JFrame {
               array_counter++;
           }
         }
-        groups++;//number of groups=number of separations+1
+   //     groups++;//number of groups=number of separations+1
 
         for(int j=0;j<groups;j++)
         {
