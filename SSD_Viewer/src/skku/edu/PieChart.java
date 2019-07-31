@@ -134,6 +134,9 @@ public class PieChart extends JFrame {
             //adding the gap segment
             plot.setSectionPaint("gap"+Integer.toString(j), Color.BLACK);
         }
+        plot.setLabelGenerator(null);//removes the labels
+        pieChart.clearSubtitles();  //removees the subtitles
+
 
 
 
