@@ -42,12 +42,8 @@ public class PBAtable extends JFrame{
                 else ack = 1;
             }
             if(ack == 2){
-
                 LBA_vec.addElement(st.split("\\s")[0]);
                 PBA_vec.addElement(st.split("\\s")[1]);
-                System.out.println("split "+st.split("\t")[0]);
-                System.out.println("split "+st.split("\t")[1]);
-
             }
             if(st.equals(file_name)&&ack==1) ack = 2;
         }
@@ -60,6 +56,8 @@ public class PBAtable extends JFrame{
         PBA_list.setListData(PBA_vec);
         LBA_list.clearSelection();
         PBA_list.clearSelection();
+        scrPane.setViewportView(LBA_list);
+        scrPane.setViewportView(PBA_list);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
