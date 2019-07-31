@@ -1,5 +1,5 @@
-// Iterator.c ver 3.0
-
+// Iterator.c ver 3.1
+//Last Update: Added Bash Commands to get PBA
 #include<sys/ioctl.h>
 #include <stdlib.h>
 #include <sys/stat.h>
@@ -11,28 +11,97 @@
 #include <limits.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 //Directory Looping Function
 static int ptree(char *curpath, char * const path);
 //LBA Extraction Function
 void fibmap_fun(char name[20]);
 int caller=0;//for choosing between printing the name only or with details
+void extract_pba();
+unsigned long int pba[830000];
+FILE *output;
 
 int main(int argc, char * const argv[])
 {
+  //Step0: Clear Trace File
+	system("echo > /sys/kernel/debug/tracing/trace");
+  //Step1 : Check trace file size
+  FILE *f1;
+  char c[25];
+  int i=0;
+  long val;
+  system("cat /sys/kernel/debug/tracing/buffer_size_kb > buffer_size.txt");
+
+  f1=fopen("buffer_size.txt","r");
+  while((c[i] = fgetc(f1)) != EOF) i++;
+
+  c[i+1]='\0';
+  fclose(f1);
+
+  char *p=c;
+  while (*p)
+  {
+        if ( isdigit(*p) || ( (*p=='-'||*p=='+') && isdigit(*(p+1)) ))
+        {
+          val = strtol(p, &p, 10);
+        //  printf("%ld\n", val);
+        }
+        else
+        {
+          p++;
+        }
+  }
+
+  //Step2: Resize Trace File if Necessary
+  if(val==1410) system("echo 780000 > /sys/kernel/debug/tracing/buffer_size_kb");
+
+  //Step3: Create PBLK Instance
+
+  int create_error =  system("sudo nvme lnvm create -d nvme0n1 -n mydevice -t pblk -b 0 -e 3");
+  if(create_error != 0 ){
+  	system("sudo umount /mnt/nvme");
+	system("sudo nvme lnvm remove -n mydevice");
+  
+  	system("sudo nvme lnvm create -d nvme0n1 -n mydevice -t pblk -b 0 -e 3");
+ 	printf("mydevice is newly created.\n-------------------------------\n\n");
+  }
+  
+  system("sudo mount /dev/mydevice /mnt/nvme");
+  //Step4: invoke pblk_sysfs.c functions by check test_kdy
+  system("cat /sys/block/mydevice/pblk/test_kdy");
+ 
+  
+  //Step5: EXTRACT PBA from trace file  -> make a function and call it inside fibmap
+  extract_pba();
+  
+  system("echo > output.txt");	
+  output = fopen("output.txt", "w");
+  if(output == NULL){
+	  printf("File pointer error!\n\n");
+	  exit(1);
+  }
+
   int k;
   int rval;
 
   for (rval = 0, k = 1; k < argc; k++)
   if (ptree(NULL, argv[k]) != 0)
   rval = 1;
-//calling one more time to print details
-  printf("END\n");
+  //calling one more time to print details
+  fprintf(output, "END\n");
   caller=1;
   rval=0;
   for (rval = 0, k = 1; k < argc; k++)
   if (ptree(NULL, argv[k]) != 0)
   rval = 1;
+ 
+  //Step6: Remove PBLK
+  system("sudo umount /mnt/nvme");
+  system("sudo nvme lnvm remove -n mydevice");
+
   return rval;
+
+
 }
 
 static int ptree(char *curpath, char * const path)
@@ -95,14 +164,10 @@ static int ptree(char *curpath, char * const path)
       //loop backward until the code finds a backslash / -> use new_name for full name with path notation
       //1) find the size of new_name ==counter2
 
-      //  printf("%d\n", counter2);
-
-      //  if(caller==1) //first time only print names
       char directory_file= S_ISDIR(st.st_mode) ? 'd' : 'f';
       if(directory_file=='f')//if file
       {
 
-      //  printf("%s\n",new_name ); full name with path
         int k=0;
 
         for(k=counter2;;k--)
@@ -115,10 +180,10 @@ static int ptree(char *curpath, char * const path)
         }
         while(k<=counter2)
         {
-          printf("%c",new_name[k]);
+         fprintf(output,"%c",new_name[k]);
           k++;
         }
-        printf("\n");
+        fprintf(output, "\n");
 
         if(caller==1)
         {
@@ -173,20 +238,61 @@ void fibmap_fun(char file_name[20])
   }
 
   blkcnt = (st.st_size + blocksize - 1) / blocksize;
-  //printf("File %s size %d blocks %d blocksize %d\n",
-  //file_name, (int)st.st_size, blkcnt, blocksize);
-
-  //uncomment the above lines ^ to get file's name,size,number of blocks and size of each block
 
   for (i = 0; i < blkcnt; i++) {
     block = i;
     if (ioctl(fd, FIBMAP, &block)) {
       perror("FIBMAP ioctl failed");
-    }
-    printf("%d\n", block);
+    
+	}
+
+	if(pba[block-1000] == -1) pba[block-1000] = 4294967295;
+    fprintf(output, "%d %ld\n", block,pba[block-1000]);
   }
 
   end:
-  printf("END\n");
+  fprintf(output, "END\n");
   close(fd);
+}
+
+
+void extract_pba(){
+
+	int fd = open("/sys/kernel/debug/tracing/trace", O_RDONLY);
+//	int fd = open("sample", O_RDONLY);	
+	int idx = 0;
+	char buf [100];
+	int line = 1, cell = 0;
+	int i = 0;
+	if(fd == -1) printf("FD error\n");
+
+	while(read(fd, buf+idx, 1)){
+			
+		if(buf[idx]=='\n'){//newline
+		
+			if(line > 11){
+				*(buf + idx + 1) = '\0';
+				//printf("num %d:%s", line, buf + 65);
+								
+				char* ptr = strtok(buf + 65, " ");
+				ptr = strtok(NULL," ");
+				pba[i] = atoi(ptr);
+				i++;		
+				idx = 0;
+				line++;
+
+			}
+			else{
+				*(buf + idx + 1) = '\0';
+				idx = 0;
+				line++;
+			}
+		}	
+
+		else{
+			idx++;
+		}
+
+	}
+
 }
