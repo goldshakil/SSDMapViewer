@@ -91,10 +91,10 @@ public class SSDGUIFORM extends JFrame{
         distributionBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Log pie button "+file_name);
+                System.out.println("Log distribution button "+file_name);
 
                 if(file_name.length() > 0){
-                    System.out.println("Log pie legal "+file_name);
+                    System.out.println("Log distribution legal "+file_name);
 
                     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     setVisible(false);

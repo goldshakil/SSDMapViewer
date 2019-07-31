@@ -33,10 +33,12 @@ public class PBA_distribution extends JFrame{
         model = new DefaultTableModel(userColumn, 0);
 
 
-        for(int i = 0; i < 999999999; i++) {
+        for(int i = 0; i < 1000000; i++) {
             Vector<String> userRow = new Vector<>();
             userRow.addElement(Long.toString(i));
-            userRow.addElement(" ");
+            for(int j = 0; j < 1000; j++) {
+                userRow.addElement(" ");
+            }
             model.addRow(userRow);
         }
         distribution_table = new JTable(model){
