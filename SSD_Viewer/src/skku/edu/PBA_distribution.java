@@ -29,14 +29,16 @@ public class PBA_distribution extends JFrame{
 
         distribution_label.setText(" PBA distribution:  " + file_name);
         userColumn.addElement("PBA");
-        userColumn.addElement("Allocation");
+        for(int i = 0; i < 100; i++) {
+            userColumn.addElement(Integer.toString(i));
+        }
         model = new DefaultTableModel(userColumn, 0);
 
 
-        for(int i = 0; i < 1000000; i++) {
+        for(int i = 0; i < 10000; i++) {
             Vector<String> userRow = new Vector<>();
             userRow.addElement(Long.toString(i));
-            for(int j = 0; j < 1000; j++) {
+            for(int j = 0; j < 100; j++) {
                 userRow.addElement(" ");
             }
             model.addRow(userRow);
@@ -73,7 +75,7 @@ public class PBA_distribution extends JFrame{
             if(ack == 2){
                 System.out.println(st.split("\t")[1]);
                 int row = Integer.parseInt(st.split("\t")[1]);
-                distribution_table.setValueAt("*", row, 1);
+                distribution_table.setValueAt("*", row/100000, (row%100000)/1000+1);
             }
 
             if(st.equals(file_name)&&ack == 1) ack = 2;
