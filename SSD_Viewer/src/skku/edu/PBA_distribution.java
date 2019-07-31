@@ -73,9 +73,10 @@ public class PBA_distribution extends JFrame{
             }
 
             if(ack == 2){
-                System.out.println(st.split("\t")[1]);
-                int row = Integer.parseInt(st.split("\t")[1]);
-                distribution_table.setValueAt("*", row/100000, (row%100000)/1000+1);
+                if(!st.split("\t")[1].equals("4294967295")) {
+                    int row = Integer.parseInt(st.split("\t")[1]);
+                    distribution_table.setValueAt("*", row / 100000, (row % 100000) / 1000 + 1);
+                }
             }
 
             if(st.equals(file_name)&&ack == 1) ack = 2;

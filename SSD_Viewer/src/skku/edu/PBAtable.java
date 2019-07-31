@@ -42,8 +42,11 @@ public class PBAtable extends JFrame{
                 else ack = 1;
             }
             if(ack == 2){
-                LBA_vec.addElement(st.split("\\s")[0]);
-                PBA_vec.addElement(st.split("\\s")[1]);
+                if(!st.split("\t")[1].equals("4294967295")) {
+
+                    LBA_vec.addElement(st.split("\t")[0]);
+                    PBA_vec.addElement(st.split("\t")[1]);
+                }
             }
             if(st.equals(file_name)&&ack==1) ack = 2;
         }

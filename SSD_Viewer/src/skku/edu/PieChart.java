@@ -7,7 +7,6 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.general.PieDataset;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,9 +57,11 @@ public class PieChart extends JFrame {
             if(ack == 2){
 
                 //TODO: LBA_vec, PBA_vec push back
+                if(!st.split("\t")[1].equals("4294967295")) {
 
-                LBA_vec.addElement(st.split("\t")[0]);
-                PBA_vec.addElement(st.split("\t")[1]);
+                    LBA_vec.addElement(st.split("\t")[0]);
+                    PBA_vec.addElement(st.split("\t")[1]);
+                }
             }
             if(st.equals(file_name)&&ack==1) ack = 2;
         }
