@@ -28,7 +28,7 @@ public class PBAtable extends JFrame{
 
         System.out.println("pba file name: "+file_name);
 
-        label.setText(" "+file_name);
+        label.setText("\t"+file_name);
         userColumn.addElement("LBA");
         userColumn.addElement("PBA");
         model = new DefaultTableModel(userColumn, 0);
