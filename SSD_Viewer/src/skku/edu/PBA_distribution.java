@@ -1,6 +1,5 @@
 package skku.edu;
 
-import javafx.scene.control.TableCell;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
